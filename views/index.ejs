@@ -17,6 +17,14 @@
             <div class="col s12 m6">
               <div class="card">
                 <div class="card-content">
+                  <%if(error !== null){%>
+                  <div class="row teal lighten-4">
+                    <div class="col s12">
+                      <p class="center-align"><%= error %></p>
+                    </div>
+                  </div>
+                  <%}%>
+                  
                   <span class="card-title">ToDo List</span>
                   <div class="row">
                     <form class="col s12" method="post"  action="/">
@@ -26,18 +34,27 @@
                                 <label for="task">Input Task</label>
                             </div>
                         </div>
-                        <input type="submit" value="Add Task" class="btn">
+                        <%if(red !== null){%>
+                          <button type="submit" name="action" value="edit" class="btn">Edit Task</button>
+                          <input type="hidden" name="taskId" value="<%= red %>">
+                        <%}%>
+                        <input type="submit" name="action" value="Add Task" class="btn">
                     </form>
                     </div>
                 </div>
                 <div class="card-action">
+                  
                     <ul class="collection">
                     <% tasks.forEach((task) => { %>
 
-                      <li class="collection-item"><%= task.task %> <a href="delete-task/<%= task.id %>" class="secondary-content"><i class="material-icons">backspace</i></a></li>
+                      <li class="collection-item"><%= task.task %> 
+                        <a href="delete-task/<%= task.id %>" class="secondary-content"><i class="material-icons">backspace</i></a> 
+                        <a href="edit-task/<%= task.id %>" class="secondary-content"><i class="material-icons">edit</i></a></li>
                       
                   <% }) %>
+                  
                   </ul>
+                  <a href="/delete-tasks/" class="btn">CLEAR ALL</a>
                 </div>
               </div>
             </div>
